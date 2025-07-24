@@ -5,14 +5,19 @@ import { defineConfig } from 'vitest/config'
 import Components from 'unplugin-vue-components/vite'
 
 export default defineConfig({
-  plugins: [vue(), tailwindcss(), Components({
-    dts: true,
-    include: [/\.vue$/, /\.vue\?vue/, /\.md$/],
-  })],
+  base: "/DevTools/",
+  plugins: [
+    vue(),
+    tailwindcss(),
+    Components({
+      dts: true,
+      include: [/\.vue$/, /\.vue\?vue/, /\.md$/],
+    }),
+  ],
   resolve: {
-    extensions: ['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json', '.vue'],
+    extensions: [".mjs", ".js", ".ts", ".jsx", ".tsx", ".json", ".vue"],
     alias: {
-      '@': path.resolve(__dirname, './src'),
+      "@": path.resolve(__dirname, "./src"),
     },
-  }
-})
+  },
+});
