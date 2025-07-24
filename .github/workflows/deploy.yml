@@ -2,12 +2,11 @@ name: Deploy
 
 on:
   push:
-    branches: [main]
-
+    branches: [ main ]
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
 
@@ -16,26 +15,25 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  # 构建工作
-  build:
+  build-and-deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Setup Node
+
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 22
-      - name: Setup Pages
-        uses: actions/configure-pages@v4
+          node-version: '22'
+          cache: 'npm'
 
-      - name: Install dependencies
-        run: npm install
+      - name: Install Dependencies
+        run: npm ci
 
-      - name: Build
+      - name: Build Main App
         run: npm run build
-
-      - name: Deploy
+      
+      - name: Deploy Main App
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           branch: gh-pages
